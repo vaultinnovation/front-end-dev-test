@@ -58,6 +58,18 @@ function asset($file)
 
 
 <div class="container">
+    <div class="row" id="catPicsGoHere">
+        
+    </div>
+
+    <script id="catPicTemplate" type="text/x-handlebars-template">
+        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+            <a href="{{catPicSrcUrl}}">
+                <img class="img-fluid" src="http://thecatapi.com/api/images/get?image_id={{catPicId}}">
+            </a>
+        </div>
+    </script>
+
 
 </div>
 
