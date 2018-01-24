@@ -10,6 +10,7 @@ var revOutdated     = require('gulp-rev-outdated');
 var path            = require('path');
 var through         = require('through2');
 var runSequence     = require('run-sequence');
+var watch           = require('gulp-watch');
 
 var assetsDir = 'resources/assets';
 var publicAssetsDir = 'public';
@@ -37,6 +38,19 @@ gulp.task('css', function() {
             assetsDir + '/components/css-hamburgers/dist/hamburgers.css',
             assetsDir + '/sass/**/*.scss'
         ])
+        .pipe(sass({
+            errLogToConsole: true,
+            debugInfo: true,
+            lineNumbers: true,
+            outputStyle: 'compressed'
+        }).on('error', sass.logError))
+        .pipe(concat('app.css'))
+        .pipe(gulp.dest(publicAssetsDir + '/css/'))
+        .pipe(notify('Sass Compiled!'));
+});
+
+gulp.task('stream', function() {
+    return watch('/sass/**/*.scss', { ignoreInitial: false })
         .pipe(sass({
             errLogToConsole: true,
             debugInfo: true,
