@@ -7,6 +7,14 @@ function asset($file)
     return $assets[$file];
 }
 
+// Get cat data
+$catapi = "http://thecatapi.com/api/images/get?format=xml&results_per_page=20";
+$xmlstring = file_get_contents($catapi);
+$xml = simplexml_load_string($xmlstring);
+
+// print_r($xml->data->images->image);
+// exit();
+
 ?>
 
 <!DOCTYPE html>
@@ -36,13 +44,15 @@ function asset($file)
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button class="hamburger hamburger--spring navbar-toggle collapsed hide" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button class="hamburger hamburger--spring navbar-toggle collapsed hide" 
+            type="button" data-toggle="collapse" data-target="#navbar" 
+            aria-expanded="false" aria-controls="navbar">
                 <span class="hamburger-box">
                   <span class="hamburger-inner"></span>
                 </span>
             </button>
 
-            <a class="navbar-brand" href="#"><img src="/img/vault.png" class="logo"/></a>
+            <a class="navbar-brand" href="#"><img src="/images/logo.png" class="logo"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -57,7 +67,23 @@ function asset($file)
 </nav>
 
 
+
+
 <div class="container">
+    
+    <div class="row text-center text-lg-left" id="cat-grid"></div>
+    
+    <script id="cat-template" type="text/x-handlebars-template">
+        {{#each image}}
+            <div class="col-lg-3 col-md-4 col-xs-6">
+              <a href="{{ source_url }}" 
+              class="d-block mb-4 h-100 img-fluid img-thumbnail" 
+              style="background-image: url({{ url }})"></a>
+            </div>
+        {{/each}}
+    </script>
+    
+    
 
 </div>
 
